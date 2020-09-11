@@ -1,4 +1,6 @@
 *.gitignore
+monmeta.py
+cred.py
 *.log
 SystemMonitor/
 type1/
