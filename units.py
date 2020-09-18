@@ -2,6 +2,7 @@ import os
 import psutil
 import platform
 from datetime import datetime
+import multiprocessing
 
 
 class KpiUnits(object):
@@ -24,8 +25,10 @@ class KpiUnits(object):
 
 
     def TEMP(self):
-            temp = psutil.sensors_temperatures()
-            return temp
+            #temp = psutil.sensors_temperatures()
+            core0t = psutil.sensors_temperatures()['coretemp'][0][1]
+            core1t = psutil.sensors_temperatures()['coretemp'][1][1]
+            return [core0t, core1t]
 
     def PROCESS(self):
         # the list the contain all process dictionaries
@@ -98,17 +101,23 @@ class SystemUnits(object):
         #for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
         #    print(f"Core {i}: {percentage}%")
         #    print(f"Total CPU Usage: {psutil.cpu_percent()}%")
-        core_count = psutil.cpu_count(logical=False)
-        thread_count = psutil.cpu_count(logical=True)
-        cpufreq = {'capacity': psutil.cpu_freq().max, 'current':psutil.cpu_freq().current, 'min': psutil.cpu_freq().min}
-        usage = psutil.cpu_times_percent()
-        
-        return dict({'cores': core_count, 'threads': thread_count, 'cpufreq': cpufreq, 'usage': {'user': usage.user, 'nice':usage.nice, 'system':usage.system, 'idle':usage.idle,'iowait':usage.iowait, 'irq':usage.irq, 'softirq': usage.softirq, 'steal': usage.steal, 'guest': usage.guest, 'guestnice': usage.guest_nice }})
+        #core_count = psutil.cpu_count(logical=False)
+        #thread_count = psutil.cpu_count(logical=True)
+        #cpufreq = {'capacity': psutil.cpu_freq().max, 'current':psutil.cpu_freq().current, 'min': psutil.cpu_freq().min}
+        #usage = psutil.cpu_times_percent()
+        #current = psutil.cpu_percent()/multiprocessing.cpu_count()
+        #print('current cpu', current)
+        return psutil.cpu_percent()
+        #return dict({'cores': core_count, 'threads': thread_count, 'cpufreq': cpufreq, 'current': current, 'usage': {'user': usage.user, 'nice':usage.nice, 'system':usage.system, 'idle':usage.idle,'iowait':usage.iowait, 'irq':usage.irq, 'softirq': usage.softirq, 'steal': usage.steal, 'guest': usage.guest, 'guestnice': usage.guest_nice }})
+
+    def LOAD(self):
+        return psutil.getloadavg()[2]
 
     def RAM(self):
-        mem = psutil.virtual_memory()
-        swap = psutil.swap_memory()
-        return {'ram_total': mem.total, 'ram_available': mem.available, 'ram_used': mem.used , 'ram_percent': mem.percent, 'swap_total': swap.total, 'swap_free': swap.free, 'swap_used': swap.used , 'swap_percent': swap.percent}
+        #mem = psutil.virtual_memory()
+        #swap = psutil.swap_memory()
+        #return {'ram_total': mem.total, 'ram_available': mem.available, 'ram_used': mem.used , 'ram_percent': mem.percent, 'swap_total': swap.total, 'swap_free': swap.free, 'swap_used': swap.used , 'swap_percent': swap.percent}
+        return psutil.virtual_memory()[2]
 
     def DISK(self):
         disk = {}

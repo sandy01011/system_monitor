@@ -35,10 +35,10 @@ class MongoDB(object):
         MongoDB.DATABASE[collection].insert(data)
 
 
-def load_monitor_data(data):
+def load_monitor_data(mondb,data):
     MongoDB.initialize(db)
     try:
-        MongoDB.insert(collection=data['monitor']['type'],data=data)
+        MongoDB.insert(collection=mondb,data=data)
     except Exception:
         print('load_bot_meta_to_db error occured')
 
