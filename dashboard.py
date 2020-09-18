@@ -8,12 +8,12 @@ import matplotlib.animation as animation
 
 
 def getDF():
-    URI = "mongodb://braindecoders.net:9508"
+    URI = "mongodb://braindecoders.net:9"
     client = pymongo.MongoClient(URI)
     db = client['monitordb']
-    db.authenticate('mon2', 'm0ntw0')
-    col = 'sysmon'
-    df = pd.DataFrame(list(db.sysmon.find())).tail(30)
+    db.authenticate()
+    col = ''
+    df = pd.DataFrame(list(db.col.find())).tail(30)
     print('df loaded')
     #print(df['hostname'][0])
     return df
