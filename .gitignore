@@ -2,7 +2,7 @@
 monmeta.py
 cred.py
 *.log
-units.pyc
+*.pyc
 SystemMonitor/
 type1/
 __pycache__/
