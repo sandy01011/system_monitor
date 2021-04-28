@@ -1,7 +1,8 @@
-*.gitignore
+.gitignore
 monmeta.py
 cred.py
 *.log
+units.pyc
 SystemMonitor/
 type1/
 __pycache__/
