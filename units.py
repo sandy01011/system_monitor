@@ -26,9 +26,10 @@ class KpiUnits(object):
 
     def TEMP(self):
             #temp = psutil.sensors_temperatures()
-            core0t = psutil.sensors_temperatures()['coretemp'][0][1]
-            core1t = psutil.sensors_temperatures()['coretemp'][1][1]
-            return [core0t, core1t]
+            #core0t = psutil.sensors_temperatures()['coretemp'][0][1]
+            #core1t = psutil.sensors_temperatures()['coretemp'][1][1]
+            #return [core0t, core1t]
+            pass
 
     def PROCESS(self):
         # the list the contain all process dictionaries

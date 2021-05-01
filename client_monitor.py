@@ -35,7 +35,7 @@ def get_system_stats():
 #sys_stats = {'index':'bluemoon', 'statsdf':data_dict}
 #sys_stats = {'index':'bluemoon', 'statsdf':get_system_stats()}
 sys_stats = get_system_stats()
-print(sys_stats)
+#print(sys_stats)
 #LoadMetaData.load_bot_metadata_to_db(statistics['prime'])
-load_monitor_data('sysmon',sys_stats)
+load_monitor_data('collection',sys_stats)
 #print(statistics)
