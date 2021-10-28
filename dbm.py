@@ -5,6 +5,7 @@ from monmeta import meta
 
 
 metadata= meta()
+#print(metadata)
 db = metadata[3]
 db_collection = metadata[4]
 
@@ -39,10 +40,13 @@ class MongoDB(object):
 def load_monitor_data(mondb,data):
     MongoDB.initialize(db)
     #print('mongodb initialized')
-    #print('current db is {} collection is {} while data is {}'.format(db, db_collection, data))
+    print('current db is {} collection is {} while data is {}'.format(db, db_collection, data))
+    user_data = {'user':'sandy01011', 'sysmon':data}
+    #print(user_data)
     try:
-        MongoDB.insert(collection=db_collection,data=data)
-    except Exception:
+        MongoDB.insert(collection=db_collection,data=user_data)
+    except Exception as e:
+        print(e)
         print('load_bot_meta_to_db error occured')
 
 

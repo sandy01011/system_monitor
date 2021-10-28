@@ -1,5 +1,10 @@
 .gitignore
 monmeta.py
+client_monitor.py-orig
+client_monitor_alpha.py
+monitor.json
+running_app.py-orig
+test.py
 cred.py
 *.log
 *.pyc
