@@ -5,17 +5,34 @@ import pymongo
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import matplotlib.animation as animation
+from monmeta import meta
 
+print('libraries imported')
+
+#metadata= meta()
+#db = metadata[3]
+#db_collection = metadata[4]
 
 def getDF():
-    URI = "mongodb://braindecoders.net:9"
+    print('within getDF')
+    metadata = meta()
+    URI = metadata[2]
+    username = metadata[0]
+    password = metadata[1]
+    try:
+        client = pymongo.MongoClient(URI)
+    except Exception:
+            print("Fatal error in main loop")
     client = pymongo.MongoClient(URI)
-    db = client['monitordb']
+    db = metadata[3]
+    db_collection = metadata[4]
+    client_db = client[db]
     db.authenticate()
-    col = ''
+    col = db_collection
     df = pd.DataFrame(list(db.col.find())).tail(30)
+    print(df)
     print('df loaded')
-    #print(df['hostname'][0])
+    print(df['hostname'][0])
     return df
 
 fig = plt.figure(figsize = (16,8), dpi = 150)
@@ -29,8 +46,8 @@ ax4 = fig.add_subplot(2,2,4)
 
 
 def animate(i):
+    print('animate 1')
     data = getDF()
-    
     xtime = data['start_time'].dt.strftime('%Y-%m-%d_%H:%M')
     ycpu = data['cpu']
     yload = data['load']
@@ -99,4 +116,6 @@ def animate(i):
 	
 fig.tight_layout(pad=6.0)    
 ani = animation.FuncAnimation(fig, animate, interval=20000) 
+print('going to generate plot')
 plt.show()
+print('programme ended')
